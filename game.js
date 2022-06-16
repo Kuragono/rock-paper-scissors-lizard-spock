@@ -1,5 +1,6 @@
-const rndNum = (choices) => Math.floor(Math.random() * choices) + 1;
 let playerPoints = 0;
+let computerPoints = 0;
+const rndNum = (choices) => Math.floor(Math.random() * choices) + 1;
 
 function computerPlay() {
   let choice = rndNum(5);
@@ -16,16 +17,31 @@ function computerPlay() {
   }
 }
 
-function playerSelection() {
-  let userInput = prompt("Rock, Paper, Scissors, Lizard or Spock?");
-  return correct(userInput);
-}
+//function playerSelection(userInput) {
+  //let userInput = prompt("Rock, Paper, Scissors, Lizard or Spock?");
+  //return correct(userInput);
+  //return userInput;
+//}
 
-function correct(input) {
-  return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
-}
+//function correct(input) {
+//  return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+//}
+
+// function testPlayerChoice() {
+//   let choice = correct(playerSelection());
+//   if (choice == 'Rock' || choice == 'Paper' || choice == 'Scissors' || choice == 'Lizard' || choice == 'Spock') {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
 function playGame(playerSelection, computerPlay) {
+  // if (testPlayerChoice()) {
+  //   return;
+  // } else {
+  //   console.log('You selected something invalid!')
+  // }
   console.log("You chose: ", playerSelection);
   console.log("The computer chose: ", computerPlay);
   if (playerSelection === "Rock") {
@@ -33,7 +49,7 @@ function playGame(playerSelection, computerPlay) {
       console.log("It's a Draw!");
     } else if (computerPlay === "Paper") {
       console.log("You Lose! Paper covers Rock!");
-      playerPoints--;
+      computerPoints++;
     } else if (computerPlay === "Scissors") {
       console.log("You Win! Rock crushes Scissors!");
       playerPoints++;
@@ -42,7 +58,7 @@ function playGame(playerSelection, computerPlay) {
       playerPoints++;
     } else {
       console.log("You Lose! Spock vaporizes Rock!");
-      playerPoints--;
+      computerPoints++;
     }
   } else if (playerSelection === "Paper") {
     if (computerPlay === "Rock") {
@@ -52,10 +68,10 @@ function playGame(playerSelection, computerPlay) {
       console.log("It's a draw!");
     } else if (computerPlay === "Scissors") {
       console.log("You Lose! Scissors cuts Paper!");
-      playerPoints--;
+      computerPoints++;
     } else if (computerPlay === "Lizard") {
       console.log("You Lose! Lizard eats Paper!");
-      playerPoints--;
+      computerPoints++;
     } else {
       console.log("You Win! Paper disproves Spock!");
       playerPoints++;
@@ -63,7 +79,7 @@ function playGame(playerSelection, computerPlay) {
   } else if (playerSelection === "Scissors") {
     if (computerPlay === "Rock") {
       console.log("You Lose! Rock crushes Scissors!");
-      playerPoints--;
+      computerPoints++;
     } else if (computerPlay === "Paper") {
       console.log("You Win! Scissors cuts Paper!");
       playerPoints++;
@@ -74,18 +90,18 @@ function playGame(playerSelection, computerPlay) {
       playerPoints++;
     } else {
       console.log("You Lose! Spock smashes Scissors!");
-      playerPoints--;
+      computerPoints++;
     }
   } else if (playerSelection === "Lizard") {
     if (computerPlay === "Rock") {
       console.log("You Lose! Rock crushes Lizard!");
-      playerPoints--;
+      computerPoints++;
     } else if (computerPlay === "Paper") {
       console.log("You Win! Lizard eats Paper!");
       playerPoints++;
     } else if (computerPlay === "Scissors") {
       console.log("You Lose! Scissors depatitates Lizard!");
-      playerPoints--;
+      computerPoints++;
     } else if (computerPlay === "Lizard") {
       console.log("It's a Draw!");
     } else {
@@ -98,24 +114,23 @@ function playGame(playerSelection, computerPlay) {
       playerPoints++;
     } else if (computerPlay === "Paper") {
       console.log("You Lose! Paper disproves Spock!");
-      playerPoints--;
+      computerPoints++;
     } else if (computerPlay === "Scissors") {
       console.log("You Win! Spock smashes Scissors!");
       playerPoints++;
     } else if (computerPlay === "Lizard") {
       console.log("You Lose! Lizard poisons Spock!");
-      playerPoints--;
+      computerPoints++;
     } else {
       console.log("It's a Draw!");
     }
   }
 }
 
-function game() {
-    for (let i = 0; i < 5; i++) {
-        playGame(playerSelection(), computerPlay());
-        setTimeout(() => console.log("Your current points: ", playerPoints), 5000);
-    }
+function game(button) {
+  //for (let i = 0; i < 1; i++) {}
+  playGame(button, computerPlay());
+  currentPoints();
 }
 
 function getWinner() {
@@ -128,9 +143,29 @@ function getWinner() {
     }
 }
 
-alert(
-  "It's very simple. \n \n Scissors cuts Paper, \n Paper covers Rock, \n Rock crushes Lizard, \n Lizard poisons Spock, \n Spock smashes Scissors, \n Scissors decapitates Lizard, \n Lizard eats Paper, \n Paper disproves Spock, \n Spock vaporizes Rock, \n and as it always has, \n Rock crushes scissors."
-);
+function currentPoints() {
+  document.getElementById('playerpoints').textContent = `You: ${playerPoints}`;
+  document.getElementById('computerpoints').textContent = `Computer: ${computerPoints}`;
+}
 
-game();
-getWinner();
+//game();
+//getWinner();
+
+
+/********** BUTTONS ***********/
+
+document.getElementById('rock').addEventListener('click', () => {
+  game('Rock');
+})
+document.getElementById('paper').addEventListener('click', () => {
+  game('Paper');
+})
+document.getElementById('scissors').addEventListener('click', () => {
+  game('Scissors');
+})
+document.getElementById('lizard').addEventListener('click', () => {
+  game('Lizard');
+})
+document.getElementById('spock').addEventListener('click', () => {
+  game('Spock');
+})
